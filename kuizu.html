@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>quizアプリ02</title>
+    <style>
+        .header,
+        .footer {
+            width: 100%;
+            background: navy;
+            color: whitesmoke;
+            border: 1px solod #000;
+            box-sizing: border-box;
+            text-align: center;
+        }
+
+        main {
+            font-size: 24px;
+            text-align: center;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        form ul {
+            list-style: none;
+        }
+    </style>
+</head>
+
+<body>
+
+    <header class="header">
+        <h1>ビビり度診断テスト</h1>
+    </header>
+    <main>
+        <p id="count">1問目</p>
+        <p id="question"></p>
+        <form action="">
+            <ul>
+                <li class="choice_0">
+                    <input type="radio" name="choices" id="choice0" value="0">
+                    <label for="choice0" id="choice0_label"></label>
+                </li>
+                <li class="choice_1">
+                    <input type="radio" name="choices" id="choice1" value="1">
+                    <label for="choice1" id="choice1_label"></label>
+                </li>
+                <li id="hoice_02" class="choice_2">
+                    <input type="radio" name="choices" id="choice2" value="2">
+                    <label for="choice2" id="choice2_label"></label>
+                </li>
+            </ul>
+        </form>
+    </main>
+    <footer class="footer">
+        <h1 id="result">結果は？</h1>
+        <h1 id="lastresult"> </h1>
+    </footer>
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script>
+
+        const questions = [
+            {
+              question:  'おまじないやジンクスを持っている？',
+              choices:['あります', 'ないです'],
+              answer: 0,
+            },
+            {
+              question:  'エレベーターとエスカレーター，どちらのほうが好き？',
+              choices:['エレベーター', 'エスカレーター'],
+              answer: 1,
+            },
+            {
+              question:  '携帯に知らない番号から着信がありました どうする？',
+              choices:['出てみる', '出ない'],
+              answer: 1,
+            },
+            {
+              question:  'お店で買い物をするときにレジで緊張する？',
+              choices:['毎回緊張する', 'ときどき緊張する', '緊張しない'],
+              answer: 0,
+            },
+            {
+              question:  'お財布の中は､すっきりと整理している方だと思う？',
+              choices:['そう思う', '思わない'],
+              answer: 0,
+            },
+            {
+              question:  'テレビの街頭インタビューで声をかけられました｡ どうする？',
+              choices:['出てみる', 'とりあえず出ない'],
+              answer: 1,
+            },
+            {
+              question:  '旅先で『あそこは不思議なことがよく起こるんですよ･･･』と聞きました｡その場所を見に行く？',
+              choices:['行ってみる', '行かない'],
+              answer: 1,
+            },
+            {
+              question:  '人生は1度の失敗で､全てが終わると思う？',
+              choices:['そうかもしれない', 'そうは思わない', 'わからない'],
+              answer: 0,
+            },
+            {
+              question:  'よく当たる姓名判断の占い師に､名前を変えたほうが良いと 言われました｡どうする？',
+              choices:['変えると思う', '変えないと思う'],
+              answer: 0,
+            },
+            {
+              question:  '順番で自己紹介をすることになりました。',
+              choices:['先の方が良い', '後の方が良い'],
+              answer: 1,
+            },
+        ];
+
+        let count = 0;
+        let correctCount = 0;
+    
+        $('#question').text(questions[count].question);
+        $('#choice0_label').text(questions[count].choices[0]);
+        $('#choice1_label').text(questions[count].choices[1]);
+        $('#choice2_label').text(questions[count].choices[2]);
+
+    $('input[name="choices"]').on('click', function (e) {
+        console.log(e.target.value);
+        if (e.target.value == questions[count].answer) {
+            correctCount++;     
+            $("#result").text(`ビビり＋${correctCount }`);
+              console.log(correctCount)
+        } else {
+            // $("#result").text("不正解");
+        }
+         if (count >= questions.length -1 ) {
+             $("#lastresult").html(`あなたのビビり度は${correctCount}です！(￣口￣∥)`);
+        } else {
+        count++;   
+
+              if (count == 3) {
+                 $('#hoice_02').show();
+             };
+
+              if (count == 4) {
+                 $('#hoice_02').hide();
+             };
+             if (count == 7) {
+                 $('#hoice_02').show();
+             };
+              if (count == 8) {
+                 $('#hoice_02').hide();
+             };
+        
+             $('#count').text(`${count + 1}問目`);  
+             $('#question').text(questions[count].question);
+             $('#choice0_label').text(questions[count].choices[0]);
+             $('#choice1_label').text(questions[count].choices[1]);
+             $('#choice2_label').text(questions[count].choices[2]);
+        }
+    });
+
+    if (count == 0) {
+        $('#hoice_02').hide();
+    };
+
+           
+
+        </script>
+    
+    </body>
+    
+    </html>

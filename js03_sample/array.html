@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>配列の練習</title>
+</head>
+
+<body>
+  <h1>配列の練習</h1>
+  <p>検証画面で確認！！</p>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script>
+      // 配列の定義
+      const list01 = [ 1 , 2 , 3 , 4 , 5 , 6 , 7 , 8 , 9 , 10 ];
+
+      // 配列の要素を出力
+      console.log (list01)
+
+      // 配列の長さ
+      console.log (list01.length)
+
+      // 先頭に追加
+      list01. unshift(0);
+      console.log(list01)
+      // 末尾に追加
+      list01.push(11);
+      console.log(list01)
+      // 先頭を削除
+      list01.shift();
+      console.log(list01)
+      // 末尾を削除
+      list01.pop();
+       console.log(list01)
+      // 反転
+      list01.reverse();
+      console.log(list01)
+
+  </script>
+</body>
+
+</html>

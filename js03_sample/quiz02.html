@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>quizアプリ02</title>
+  <style>
+    .header,
+    .footer {
+      width: 100%;
+      background: navy;
+      color: whitesmoke;
+      border: 1px solod #000;
+      box-sizing: border-box;
+      text-align: center;
+    }
+
+    main {
+      font-size: 24px;
+      text-align: center;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+    }
+
+    form ul {
+      list-style: none;
+    }
+  </style>
+</head>
+
+<body>
+  <header class="header">
+    <h1>クイズアプリ02（複数）</h1>
+  </header>
+  <main>
+    <p id="count">第1問</p>
+    <p id="question"></p>
+    <form action="">
+      <ul>
+        <li>
+        <input type="radio" name="choices" id="choice00" value="0">
+        <label for="choice00"id="choice00_label"></label>
+        </li>
+        <li>
+          <input type="radio" name="choices" id="choice01" value="1">
+          <label for="choice01"id="choice01_label"></label>
+        </li>
+        <li>
+        <input type="radio" name="choices" id="choice02" value="2">
+        <label for="choice02"id="choice02_label"></label>
+        </li>
+      </ul>
+    </form>
+  </main>
+  <footer class="footer">
+    <h1 id="result">結果は？</h1>
+  </footer>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script>
+
+    const counts = ["第１問", "第２問", "第３問", "第４問", "第５問", "第６問" ];
+
+    const questions = [
+      'コードを書くときに最も重要な要素は??', 
+      '課題をつくるときに大事なことは??', 
+      'コードを書くのがしんどくなったときはどうする??',
+      'サイレント積みは??',
+      'コードはとにかく??',
+      'いつやるの??'
+      ];
+
+      const choices = [
+          ['効率', '経済力', '時間'],
+          ['斬新なアイデア', 'コミットする時間', '洗練されたコード'], 
+          ['さらにコードを書く', 'よく寝る', 'ビールを飲む'],
+          ['神', 'ぜんざい', '犯罪'],
+          ['気持ち', '質', '量'],
+          ['今でしょう', '明日', 'もうやった']
+        ];
+        const correctAnswer = [2, 1, 0 , 2 , 2 , 0];
+
+        let count = 0; // 何問目かをカウントする変数
+        let correctCount = 0; // 正解数をカウントする変数
+
+            $('#question').text(questions[count]);
+            $('#choice00_label').text(choices[count][0]);
+            $('#choice01_label').text(choices[count][1]);
+            $('#choice02_label').text(choices[count][2]);
+
+
+            // 正解不正解の判定と次の問題を表示する処理
+            $('input[name="choices"]').on('click', function (e) {
+              console.log(e.target.value);
+              if (e.target.value == correctAnswer[count]){
+                $("#result").text("正解");
+                correctCount++;
+              } else {
+                $("#result"). text("不正解");
+            }
+            count++;
+
+            if(count < questions.length){
+
+            $('#question').text(questions[count]); // 次の問題を表示 
+            // $('#count').text(counts[count]); // 何問目かを表示 
+            $('#choice00_label').text(choices[count][0]); // 次の選択肢を表示
+            $('#choice01_label').text(choices[count][1]); // 次の選択肢を表示 
+            $('#choice02_label').text(choices[count][2]); // 次の選択肢を表示
+            $('#count').text(`第${count + 1}問`); // 次の選択肢を表示
+            } else {
+              alert("正解数" + correctCount);
+              alert("正解率" + ((correctCount * 100) /count));
+            }
+            });
+
+            function getpricecad(price){
+              let res = "";
+              if (price < 1000){
+              res = price +"円";  
+              } else if (price < 10000) {
+                const saleprice = Math.trunc(price*0.9);
+                res = "特価" + price + "円⇨" + saleprice + "円";
+              } else {
+                const saleprice = Math.trunc(price * 0.8);
+                res = "大特価" + price + "円⇨" + saleprice + "円";
+              }
+              return res;
+            }
+
+            console.log(getpricecad(500));
+            console.log(getpricecad(1000));
+            console.log(getpricecad(5000));
+            console.log(getpricecad(10000));
+            console.log(getpricecad(15000));
+
+
+         
+  
+
+  </script>
+</body>
+
+</html>

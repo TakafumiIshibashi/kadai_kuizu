@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>quizアプリ02</title>
+    <style>
+        .header,
+        .footer {
+            width: 100%;
+            background: navy;
+            color: whitesmoke;
+            border: 1px solod #000;
+            box-sizing: border-box;
+            text-align: center;
+        }
+
+        main {
+            font-size: 24px;
+            text-align: center;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        form ul {
+            list-style: none;
+        }
+    </style>
+</head>
+
+<body>
+    <header class="header">
+        <h1>クイズアプリ02（複数）</h1>
+    </header>
+    <main>
+        <p id="count">第1問</p>
+        <p id="question"></p>
+        <form action="">
+            <ul>
+                <li>
+                    <input type="radio" name="choices" id="choice00" value="0">
+                    <label for="choice00" id="choice00_label"></label>
+                </li>
+                <li>
+                    <input type="radio" name="choices" id="choice01" value="1">
+                    <label for="choice01" id="choice01_label"></label>
+                </li>
+                <li id="hoice_02" class="choice_02">
+                    <input type="radio" name="choices" id="choice02" value="2">
+                    <label for="choice02" id="choice02_label"></label>
+                </li>
+            </ul>
+        </form>
+    </main>
+    <footer class="footer">
+        <h1 id="result">結果は？</h1>
+    </footer>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script>
+
+
+        const counts = ["第１問", "第２問", "第３問", "第４問", "第５問", "第6問", "第7問", "第8問","第9問", "第10問"];
+
+        const questions = [
+            'おまじないやジンクスを持っている？??',
+            'エレベーターとエスカレーター，どちらのほうが好き？??',
+            '携帯に知らない番号から着信がありました どうする？',
+            'お店で買い物をするときにレジで緊張する？',
+            'お財布の中は､すっきりと整理している方だと思う？',
+            'テレビの街頭インタビューで声をかけられました｡ どうする？',
+            '旅先で『あそこは不思議なことがよく起こるんですよ･･･』と聞きました｡その場所を見に行く？',
+            '人生は1度の失敗で､全てが終わると思う？',
+            'よく当たる姓名判断の占い師に､名前を変えたほうが良いと 言われました｡どうする？',
+            '順番で自己紹介をすることになりました。'
+        ];
+
+        const choices = [
+            ['あります', 'ないです'],
+            ['エレベーター', 'エスカレーター'],
+            ['出てみる', 'とりあえず出ない',],
+            ['毎回緊張する', 'ときどき緊張する', '緊張しない'],
+            ['そう思う', '思わない'],
+            ['出ると思う', '出ないと思う'],
+            ['行ってみる', '行かない'],
+            ['そうかもしれない', 'そうは思わない', 'わからない'],
+            ['変えると思う', '変えないと思う'],
+            ['先の方が良い', '後の方が良い']
+        ];
+        const correctAnswer = [0, 1, 1, 0||1, 0, 1, 1, 0||2, 0, 1];
+
+        let count = 0; // 何問目かをカウントする変数
+        let correctCount = 0; // 正解数をカウントする変数
+
+        $('#question').text(questions[count]);
+        $('#choice00_label').text(choices[count][0]);
+        $('#choice01_label').text(choices[count][1]);
+        $('#choice02_label').text(choices[count][2]);
+
+
+        // 正解不正解の判定と次の問題を表示する処理
+        $('input[name="choices"]').on('click', function (e) {
+            console.log(e.target.value);
+            if (e.target.value == correctAnswer[count]) {
+                $("#result").text("正解");
+                correctCount++;
+                //  $('#hoice_02').hide();
+            } else {
+                $("#result").text("不正解");
+            }
+            count++;
+
+ if(count == 2){
+//  $(function () {
+            $('#hoice_02').hide();
+        // });
+    };
+      if (count == 3) {
+                $('#hoice_02').show();
+            };
+
+            
+
+            if (count < questions.length) {
+
+                $('#question').text(questions[count]); // 次の問題を表示 
+                // $('#count').text(counts[count]); // 何問目かを表示 
+                $('#choice00_label').text(choices[count][0]); // 次の選択肢を表示
+                $('#choice01_label').text(choices[count][1]); // 次の選択肢を表示 
+                $('#choice02_label').text(choices[count][2]); // 次の選択肢を表示
+                $('#count').text(`第${count + 1}問`); // 次の選択肢を表示
+                console.log(count)
+            } else {
+                alert("正解数" + correctCount);
+                alert("正解率" + ((correctCount * 100) / count)+"%");
+            }
+        });
+
+
+
+
+
+   
+
+    if(count == 0){
+        $('li').removeClass('choice_02');
+    }
+
+
+    console.log(count)
+
+
+
+
+
+
+        function getpricecad(price) {
+            let res = "";
+            if (price < 1000) {
+                res = price + "円";
+            } else if (price < 10000) {
+                const saleprice = Math.trunc(price * 0.9);
+                res = "特価" + price + "円⇨" + saleprice + "円";
+            } else {
+                const saleprice = Math.trunc(price * 0.8);
+                res = "大特価" + price + "円⇨" + saleprice + "円";
+            }
+            return res;
+        }
+
+        console.log(getpricecad(500));
+        console.log(getpricecad(1000));
+        console.log(getpricecad(5000));
+        console.log(getpricecad(10000));
+        console.log(getpricecad(15000));
+
+
+
+    </script>
+
+  
+</body>
+
+</html>
